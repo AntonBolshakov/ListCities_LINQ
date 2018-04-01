@@ -1,0 +1,123 @@
+﻿<Window x:Class="AppWithLINQ.MainWindow" Name="Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="List cities (LINQ)" Height="640" Width="700" MinHeight="640" MinWidth="700">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source ="Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Name="Main">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="210"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Верхнее меню -->
+        <Grid Name="TopMenuGrid" Grid.Row="1" Grid.Column="1">
+            <Menu Style="{StaticResource Menu}">
+                <MenuItem Name="File" Header="File" Style="{StaticResource MenuItems}">
+                    <MenuItem Margin="0,1,0,2" Name="Exit" Header="Exit to program" Click="ExitToProgram_Click"/>
+                </MenuItem>
+                <MenuItem Name="Reference" Header="Reference" Style="{StaticResource MenuItems}">
+                    <MenuItem Name="AboutProgram" Header="About program" Click="AboutProgram_Click" />
+                    <MenuItem Name="AboutAuthor" Header="About author" Click="AboutAuthor_Click" />
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <ScrollViewer Grid.Row="3" Grid.Column="1" Name="ScrollViewerCityList" VerticalScrollBarVisibility="Auto">
+            <Grid Name="CityList">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="1" Grid.Column="1" Name="TextHeader" Style="{StaticResource TextLabel}" FontSize="15">Filter</Label>
+            <Label Grid.Row="2" Grid.Column="1" Name="TextCountryCode" Style="{StaticResource TextLabel}">Country code: </Label>
+            <Label Grid.Row="2" Grid.Column="4" Name="TextDistrict" Style="{StaticResource TextLabel}">District:</Label>
+            <Label Grid.Row="4" Grid.Column="1" Name="TextPopulation" Style="{StaticResource TextLabel}">Population:</Label>
+            <Label Grid.Row="4" Grid.Column="4" Name="TextName_District" Style="{StaticResource TextLabel}">Name and district:</Label>
+            <Label Grid.Row="7" Grid.Column="1" Name="TextOrderBy" Style="{StaticResource TextLabel}">Order by:</Label>
+
+            <Button Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Name="CountPopulation" Style="{StaticResource ButtonStyle}" Click="CountPopulation_Click">Count population</Button>
+            <Button Grid.Row="7" Grid.Column="5" Name="ApplyFilter" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Click="ApplyFilter_Click">Apply filter</Button>
+
+            <TextBox Grid.Row="4" Grid.Column="2" Name="ValuePopulation" Margin="90,0,0,0" FontFamily="Meiryo" VerticalContentAlignment="Center" MaxLength="7" PreviewTextInput="TextInput_IntegerNumber"></TextBox>
+
+            <ComboBox Name="ComboBoxCountryCode" Grid.Row="2" Grid.Column="2" Style="{StaticResource ComboBox1}" Width="70">
+                <ComboBoxItem Content=""/>
+                <ComboBoxItem Content="AFG"/>
+                <ComboBoxItem Content="NLD"/>
+                <ComboBoxItem Content="ANT"/>
+                <ComboBoxItem Content="ALB"/>
+                <ComboBoxItem Content="DZA"/>
+            </ComboBox>
+            <ComboBox Name="ComboBoxDistrict" Grid.Row="2" Grid.Column="5" Style="{StaticResource ComboBox1}">
+                <ComboBoxItem Content=""/>
+                <ComboBoxItem Content="Similar"/>
+                <ComboBoxItem Content="Different"/>
+            </ComboBox>
+            <ComboBox Name="ComboBoxPopulation" Grid.Row="4" Grid.Column="2" Style="{StaticResource ComboBox1}" Width="70">
+                <ComboBoxItem Content=""/>
+                <ComboBoxItem Content="> or ="/>
+                <ComboBoxItem Content="&lt; or ="/>
+            </ComboBox>
+            <ComboBox Name="ComboBoxName_District" Grid.Row="4" Grid.Column="5" SelectedIndex="0" Style="{StaticResource ComboBox1}">
+                <ComboBoxItem Content=""/>
+                <ComboBoxItem Content="Similar"/>
+                <ComboBoxItem Content="Different"/>
+            </ComboBox>
+            <ComboBox Name="OrderByItem" Grid.Row="7" Grid.Column="2" SelectedIndex="0" Style="{StaticResource ComboBox1}">
+                <ComboBoxItem Content="Id"/>
+                <ComboBoxItem Content="Name"/>
+                <ComboBoxItem Content="Country code"/>
+                <ComboBoxItem Content="District"/>
+                <ComboBoxItem Content="Population"/>
+            </ComboBox>
+        </Grid>
+    </Grid>
+</Window>
